@@ -1,0 +1,33 @@
+{
+  "widget": {
+    "name": "whatsapp.widget",
+    "description": "phone_link_to_whatsapp",
+    "short_description": "Написать в WhatsApp",
+    "version": "1.0.1",
+    "interface_version": 2,
+    "init_once": true,
+    "locale": ["ru", "en"],
+    "installation": true,
+    "support": {
+      "link": "https://www.amocrm.com",
+      "email": "martin.schemes.90@gmail.com"
+    }
+  },
+  "locations": ["ccard-1", "lcard-1"],
+  "tour": {
+    "is_tour": true,
+    "tour_images": {
+      "ru": [
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png",
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png",
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png"
+      ],
+      "en": [
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png",
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png",
+        "https://raw.githubusercontent.com/mrfilimonoff/whatsapp-widget/main/images/logo_main.png"
+      ]
+    },
+    "tour_description": "Отправка сообщений клиенту в WhatsApp прямо из карточки сделки или контакта"
+  }
+}
