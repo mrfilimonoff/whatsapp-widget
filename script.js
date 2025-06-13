@@ -1,26 +1,62 @@
-AMOCRM.addNotificationCallback('widget_on_card', function () {
-  const contact = AMOCRM.data.current_card.main_contact;
-  let phoneNumber = null;
+define(["jquery", "underscore"], function ($, _) {
+  var CustomWidget = function () {
+    var self = this;
 
-  if (contact && contact.custom_fields_values) {
-    const phoneField = contact.custom_fields_values.find(f => f.field_code === 'PHONE');
-    if (phoneField && phoneField.values.length > 0) {
-      phoneNumber = phoneField.values[0].value.replace(/[^\d+]/g, '');
-    }
-  }
+    this.callbacks = {
+      render: function () {
+        const $btn = $(
+          '<button class="button-whatsapp">Написать в WhatsApp</button>'
+        );
 
-  if (phoneNumber) {
-    const button = document.createElement('button');
-    button.innerText = 'Написать в WhatsApp';
-    button.style = 'margin:10px;padding:8px 12px;background-color:#25D366;color:white;border:none;border-radius:5px;cursor:pointer;';
-    button.onclick = () => {
-      const url = `https://wa.me/${phoneNumber}`;
-      window.open(url, '_blank');
+        $btn.css({
+          background: "#25D366",
+          color: "#fff",
+          padding: "10px",
+          borderRadius: "5px",
+          border: "none",
+          cursor: "pointer",
+          margin: "10px 0",
+        });
+
+        $btn.on("click", function () {
+          const custom_fields =
+            AMOCRM.data.current_card.contact.custom_fields || [];
+          const phoneField = custom_fields.find((f) =>
+            f.name.toLowerCase().includes("телефон")
+          );
+
+          if (phoneField && phoneField.values.length) {
+            const phone = phoneField.values[0].value.replace(/\D/g, "");
+            const waLink = `https://wa.me/${phone}`;
+            window.open(waLink, "_blank");
+          } else {
+            alert("Телефон не найден");
+          }
+        });
+
+        setTimeout(() => {
+          $(".card-widget__container").first().append($btn);
+        }, 1000);
+
+        return true;
+      },
+
+      init: function () {
+        console.log("init");
+        return true;
+      },
+
+      bind_actions: function () {
+        return true;
+      },
+
+      destroy: function () {
+        return true;
+      },
     };
 
-    const container = document.querySelector('.card-fields__top');
-    if (container) container.appendChild(button);
-  }
+    return this;
+  };
 
-  return true;
+  return CustomWidget;
 });
